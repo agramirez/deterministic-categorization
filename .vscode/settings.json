@@ -1,0 +1,47 @@
+{
+    "tlaplus.tlc.modelChecker.options": "-dump dot;colorize ${modelName}.dot -workers 1 -coverage 1",
+    "plantuml.jar": "/usr/share/plantuml/plantuml.jar",
+    "plantuml.exportOutDir": "./",
+    "latex-workshop.latex.recipes": [
+        // {
+        //     "name": "single run for pstricks",
+        //     "tools": [
+        //         "lualatex"
+        //     ]
+        // },
+        {
+            "name": "alex",
+            "tools": [
+                "lualex"
+            ]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "lualatex",
+            "command": "lualatex",
+            "args": [
+                "-shell-escape",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "lualex",
+            "command": "lualatex",
+            "args": [
+                "-shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ],
+            "env": {
+                "PLANTUML_JAR": "/usr/share/plantuml/plantuml.jar"
+                ,"GRAPHVIZ_DOT": "/usr/bin/dot"
+                ,"JAVA_HOME": "usr/bin/java"
+            }
+        }
+    ]
+}

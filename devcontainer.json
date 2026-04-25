@@ -1,24 +1,15 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/rust-postgres
+// README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
-	"name": "Rust and PostgreSQL",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-	"features": {
-		"ghcr.io/devcontainers/features/python:1": {},
-		"ghcr.io/jsburckhardt/devcontainer-features/uv:1": {},
-		"ghcr.io/prulloac/devcontainer-features/latex:1": {}
-	}
+	"name": "KitchenSink",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"dockerFile": "dev.Dockerfile"
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [5432],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "rustc --version",
+	// "forwardPorts": [],
 
 	// Configure tool-specific properties.
 	,"customizations": {
@@ -30,13 +21,12 @@
 				,"rocq-prover.vsrocq"
 				,"alexkrechik.cucumberautocomplete"
 				,"tlaplus.vscode-ide"
+				,"tomoki1207.pdf"
 				,"tintinweb.graphviz-interactive-preview"
 				,"james-yu.latex-workshop"
 				,"jebbs.plantuml"
 				,"maruamallo.ea-plantuml-archimate"
 				,"ritwickdey.liveserver"
-				,"ms-toolsai.jupyter"
-				,"mechatroner.rainbow-csv"
 			]
 		}
 	}
