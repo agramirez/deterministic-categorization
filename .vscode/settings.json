@@ -43,5 +43,6 @@
                 ,"JAVA_HOME": "usr/bin/java"
             }
         }
-    ]
+    ],
+    "python.analysis.typeCheckingMode": "standard"
 }

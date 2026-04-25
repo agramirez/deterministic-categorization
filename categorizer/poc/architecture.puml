@@ -1,0 +1,32 @@
+@startuml "General Architecture"
+
+frame sources {
+    component categories
+    component messages
+}
+
+frame process {
+    component parallelize
+    component regexmatch
+    component llmbatch
+    component regroup
+    component outputresult
+}
+
+frame destinations {
+    component categorized_messages
+}
+
+categories -right-> parallelize
+messages -right-> parallelize
+
+parallelize -down-> regexmatch
+parallelize -down-> llmbatch
+
+regexmatch -down-> regroup
+llmbatch -down-> regroup
+
+regroup -down-> outputresult
+outputresult -> categorized_messages
+
+@enduml

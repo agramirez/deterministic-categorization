@@ -2,5 +2,5 @@ id,category,run_group,regex,parent,llmcheck,description
 1,crop,,,,False,"Generic parent category for crops"
 2,corn,1,"\b(corn|maize)\b",1,False,"Direct hit for corn category in english"
 3,corn,2,"\b(maiz)\b",1,False,"Direct hit for corn category in spanish"
-4,corn,1,"\b(crn|cor|orn|)\b",1,True,"Partial hit for corn category"
-5,corn,2,"\b(maiz|maze|maz|)\b",1,True,"Partial hit for corn category in spanish"
+4,corn,1,"\b(crn|cor|orn)\b",1,True,"Partial hit for corn category"
+5,corn,2,"\b(maiz|maze|maz)\b",1,True,"Partial hit for corn category in spanish"
