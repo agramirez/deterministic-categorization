@@ -4,7 +4,7 @@ title "General Architecture"
 
 frame "Data Sources" as ds {
     database db
-    database s3
+    database cloud as s3
     database local
 
     [Categories]
