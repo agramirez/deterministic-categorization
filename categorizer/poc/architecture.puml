@@ -1,32 +1,16 @@
 @startuml "General Architecture"
 
-frame sources {
-    component categories
-    component messages
-}
+start
 
-frame process {
-    component parallelize
-    component regexmatch
-    component llmbatch
-    component regroup
-    component outputresult
-}
+repeat :load message;
+    :load categories;
+    :spawn message categorization;
+    :group categories;
+    :spawn category group message categorization;
+    if (category is applicable?) then (yes) :send category to destination;
+repeat while (more messages?) is (yes)
+-> no;
 
-frame destinations {
-    component categorized_messages
-}
-
-categories -right-> parallelize
-messages -right-> parallelize
-
-parallelize -down-> regexmatch
-parallelize -down-> llmbatch
-
-regexmatch -down-> regroup
-llmbatch -down-> regroup
-
-regroup -down-> outputresult
-outputresult -> categorized_messages
+stop
 
 @enduml
