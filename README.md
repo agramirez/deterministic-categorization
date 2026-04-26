@@ -34,3 +34,7 @@ Ctrl+Shift+P -> Dev Containers: Open folder in container
 ```
 
 **Step 3:** View the [Proof of Concept iPython Notebook](./categorizer/poc/Process.ipynb)
+
+## General Architecture
+
+![General Architecture Diagram](./doc/diagrams/architecture/General%20Architecture.svg)

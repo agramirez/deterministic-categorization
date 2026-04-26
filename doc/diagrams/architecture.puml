@@ -1,0 +1,52 @@
+@startuml "General Architecture"
+
+title "General Architecture"
+
+frame "Data Sources" as ds {
+    database db
+    database s3
+    database local
+
+    [Categories]
+    [Messages]
+
+    db -down-> Messages
+    db -down-> Categories
+
+    s3 -down-> Messages
+    s3 -down-> Categories
+
+    local -down-> Messages
+    local -down-> Categories
+}
+
+frame "Orchestration" as orc {
+    [Logger]
+    [Tracer]
+    [Processor]
+}
+
+Messages --> Processor
+Categories --> Processor
+
+frame "Parallel Processing" as pro {
+    [Message Processor] as mp
+    [Category Processor] as cp
+}
+
+frame "Categorized Message Destinations" as dd {
+    [Destination] as dest
+    database "db" as dbd
+    database "s3" as s3d
+    database "local" as locald
+
+    dest -down-> dbd
+    dest -down-> s3d
+    dest -down-> locald
+}
+
+[Processor] -> mp
+mp --> cp
+cp -right-> dest
+
+@enduml
