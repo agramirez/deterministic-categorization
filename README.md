@@ -14,9 +14,9 @@ the false positives to the point where we can consider the final result "functio
 
 **Table of Contents**
 
-- [Quck Start](##quick-tart)
-- [General Architecture](##general-architecture)
-    - [Process Flow](###process-flow)
+- [Quck Start](#quick-tart)
+- [General Architecture](#general-architecture)
+    - [Process Flow](#process-flow)
 
 ## Quick Start
 
