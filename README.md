@@ -13,9 +13,10 @@ and avoiding LLM, cosine similarity, or partial regular expression matches, then
 the false positives to the point where we can consider the final result "functionally deterministic".
 
 **Table of Contents**
-[Quck Start](##Quick Start)
-[General Architecture](##General Architecture)
-- [Process Flow](###Process Flow)
+
+- [Quck Start](##quick-tart)
+- [General Architecture](##general-architecture)
+    - [Process Flow](###process-flow)
 
 ## Quick Start
 
