@@ -12,6 +12,11 @@ non-deterministic answer.  Additionally, by using well known category keywords v
 and avoiding LLM, cosine similarity, or partial regular expression matches, then we can further reduce
 the false positives to the point where we can consider the final result "functionally deterministic".
 
+**Table of Contents**
+[Quck Start](##Quick Start)
+[General Architecture](##General Architecture)
+- [Process Flow](###Process Flow)
+
 ## Quick Start
 
 **Prerequsites**
@@ -46,7 +51,7 @@ Our general architecture provides 4 key features:
 3. Progressive categorization from most deterministic to least deterministic
 4. Low LLM costs from progressive categorization
 
-## Process Flow
+### Process Flow
 
 Our process starts by selecting the categories and messages to be processed.
 
