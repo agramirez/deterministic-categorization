@@ -17,6 +17,10 @@ the false positives to the point where we can consider the final result "functio
 - [Quck Start](#quick-tart)
 - [General Architecture](#general-architecture)
     - [Process Flow](#process-flow)
+- [Implementation](#implementation)
+    - [Integration and Unit Tests (Rust)](#integration-and-unit-tests-rust)
+    - [Llama CPP and Tiny LLM models](#llama-cpp-and-tiny-llm-models)
+    - [Aggregation and Visualization (PosgreSQL and Grafana)](#aggregation-and-visualization-posgresql-and-grafana)
 
 ## Quick Start
 
@@ -63,3 +67,23 @@ The second step is to process each message using the selected categories.  We pr
 The third step is to match one or more categories to a message.  This step, of matching one or more categories to a message is done in parallel to optimize performance.  We use category groups to process multiple categories in parallel.  Categories that belong to the same group are processed sequentially and optionally can be stopped on the fist successful match such that more deterministic categorization methods are tested first before less deterministic methods.
 
 The final step is to push the categorized messages to one or more destination storage locations. 
+
+## Implementation
+
+A Proof of Concept (PoC) implementation is written in Python using standard regular expressions, llama.cpp server, tiny LLM models, and iPython notebook.
+
+A more standadized Minimal Viable Product (MVP) is implemented in Rust using regular expresion, llama.cpp server, tiny LLM models, the Gherkin/Cucumber testing framework, and PostgreSQL for data storage.
+
+An aggregation and visualization framework for aggregated metrics is provided via PosgreSQL and Grafana.
+
+### Integration and Unit Tests (Rust)
+
+**TBD**
+
+### Llama CPP and Tiny LLM models
+
+**TBD**
+
+### Aggregation and Visualization (PosgreSQL and Grafana)
+
+**TBD**
