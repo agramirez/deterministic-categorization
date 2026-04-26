@@ -23,26 +23,44 @@ frame "Data Sources" as ds {
 frame "Orchestration" as orc {
     [Logger]
     [Tracer]
-    [Processor]
+    component Processor as Processor {
+        port " " as cin
+        port " " as min
+    }
 }
 
-Messages --> Processor
-Categories --> Processor
+Messages --> cin
+Categories --> min
 
 frame "Parallel Processing" as pro {
     [Message Processor] as mp
     [Category Processor] as cp
+
+    component "Regular Expression" as regex
+    component "Cosine Similarity" as cosine
+    component "LLM Categorization" as llm
+
+    cp -down-> regex
+    cp -down-> cosine
+    cp -down-> llm
+
+    regex ..right..> cosine
+    cosine ..right..> llm
 }
 
 frame "Categorized Message Destinations" as dd {
-    [Destination] as dest
-    database "db" as dbd
-    database "s3" as s3d
+    component Destination as dest {
+        portout " " as pdbd
+        portout " " as ps3d
+        portout " " as plocald
+    }
+    database " db  " as dbd
+    database "cloud" as s3d
     database "local" as locald
 
-    dest -down-> dbd
-    dest -down-> s3d
-    dest -down-> locald
+    pdbd -down-> dbd
+    ps3d -down-> s3d
+    plocald -down-> locald
 }
 
 [Processor] -> mp
