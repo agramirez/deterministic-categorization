@@ -44,8 +44,8 @@ frame "Parallel Processing" as pro {
     cp -down-> cosine
     cp -down-> llm
 
-    regex ..right..> cosine
-    cosine ..right..> llm
+    regex ..right..> llm
+    llm ..right..> cosine
 }
 
 frame "Categorized Message Destinations" as dd {
