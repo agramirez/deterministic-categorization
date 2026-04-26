@@ -74,7 +74,7 @@ RUN sudo apt-get install -y locales && locale-gen en_US.UTF-8
 RUN sudo tlmgr init-usertree
 
 # install rust
-RUN sudo apt install -y build-essential rustup
+RUN sudo apt install -y build-essential rustup && rustup default stable
 
 RUN /workspaces/deterministic-normalization/.venv/bin/python -m pip install ipykernel -U --force-reinstall
 RUN /workspaces/deterministic-normalization/.venv/bin/python -m pip install psycopg2-binary
