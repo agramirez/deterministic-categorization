@@ -37,7 +37,7 @@ the false positives to the point where we can consider the final result "functio
 git clone https://gitlab.com/agramirez/deterministic-categorization.git
 ```
 
-**Step 2:** Build and open the container
+**Step 2:** Build and open the container (from VSCode execute)
 
 ```
 Ctrl+Shift+P -> Dev Containers: Open folder in container
@@ -72,7 +72,7 @@ The final step is to push the categorized messages to one or more destination st
 
 A Proof of Concept (PoC) implementation is written in Python using standard regular expressions, llama.cpp server, tiny LLM models, and iPython notebook.
 
-A more standadized Minimal Viable Product (MVP) is implemented in Rust using regular expresion, llama.cpp server, tiny LLM models, the Gherkin/Cucumber testing framework, and PostgreSQL for data storage.
+A more standadized Minimal Viable Product (MVP) is implemented in Erlang using regular expresion, llama.cpp server, tiny LLM models, the Gherkin/Cucumber testing framework, and PostgreSQL for data storage.
 
 An aggregation and visualization framework for aggregated metrics is provided via PosgreSQL and Grafana.
 

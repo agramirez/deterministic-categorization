@@ -63,8 +63,34 @@ frame "Categorized Message Destinations" as dd {
     plocald -down-> locald
 }
 
+frame "Analysis and Visualization" {
+    database "Data Warehouse" as dw {
+        port " " as pdwds
+        port " " as pdworc
+        port " " as pdwpro
+        port " " as pdwpdd
+        portout " " as dwo
+    }
+
+    component Grafana as grafana {
+        port " " as grafanadw
+
+        component "Infrastructure View"
+        component "Tracing View"
+        component "Data View"
+        component "Reports View"
+    }
+
+    dwo -down-> grafanadw
+}
+
+dest <-right- cp
 [Processor] -> mp
 mp --> cp
-cp -right-> dest
+
+' ds -down-> pdwds
+' orc -down-> pdworc
+' pro -down-> pdwpro
+' dd -down-> pdwpdd
 
 @enduml
