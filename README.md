@@ -90,17 +90,37 @@ We can select from multiple sources such as local files, databases, or cloud sto
 
 The second step is to process each message using the selected categories.  We provision the ability to create category hirarchies such that a match on a leaf hirarchy implies a match on parent hirarchies.
 
+Example:
+```
+             => Pest => English => The Wriggler (wrigler)
+             => Pest => English => The Wriggler Mispelled (wr?i?gle?r?)
+             => Pest => English => Fall Army worm (FAW|Fall Army Work)
+Crop => Corn => English => (Corn/Maize)
+             => English => Mispelled (cron|con|ron|crn)
+             => Spanish => (Maíz)
+Language => English => USA
+            Spanish => Mexico (neta|wey)
+                    => Spain (vale)
+                    => Colombia (chimba|vacano)
+         => Esperanto
+         => Kannada
+```
+
+In the above list we can see that a regular expression--defined in parenthesis ()--can be used to match a specific item.  However, a hirarchy exists such that we can infer that if a user sends a message asking about a corn pest such as The Wriggler (this is made up by the way...) then we can infer that the message is written in English, is about a Crop, is about the Corn Crop (assuming that The Wriggler only infects Corn crops).
+
+> NOTE: The above process will require some additional logic and processing that is not currently implement as of 2026-04-27...but in theory it should be implementable and thus allow a reduction in checks and validations if our hirarchy and filters work correctly.
+
 The third step is to match one or more categories to a message.  This step, of matching one or more categories to a message is done in parallel to optimize performance.  We use category groups to process multiple categories in parallel.  Categories that belong to the same group are processed sequentially and optionally can be stopped on the fist successful match such that more deterministic categorization methods are tested first before less deterministic methods.
 
 The final step is to push the categorized messages to one or more destination storage locations. 
 
 ## Implementation
 
-A Proof of Concept (PoC) implementation is written in Python using standard regular expressions, llama.cpp server, tiny LLM models, and iPython notebook.
+A Proof of Concept (PoC) implementation is written in Python using standard regular expressions, llama.cpp server, tiny LLM models, and iPython notebook. **WORK IN PROGRESS, but enough for demo purposes**
 
-A more standadized Minimal Viable Product (MVP) is implemented in Erlang using regular expresion, llama.cpp server, tiny LLM models, the Gherkin/Cucumber testing framework, and PostgreSQL for data storage.
+A more standadized Minimal Viable Product (MVP) is implemented in Erlang using regular expresion, llama.cpp server, tiny LLM models, the Gherkin/Cucumber testing framework, and PostgreSQL for data storage. **WORK IN PROGRESS**
 
-An aggregation and visualization framework for aggregated metrics is provided via PosgreSQL and Grafana.
+An aggregation and visualization framework for aggregated metrics is provided via PosgreSQL and Grafana. **WORK IN PROGRESS**
 
 ### Integration and Unit Tests
 
