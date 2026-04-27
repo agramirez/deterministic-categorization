@@ -16,9 +16,13 @@ the false positives to the point where we can consider the final result "functio
 
 - [Quck Start](#quick-tart)
 - [General Architecture](#general-architecture)
+    - [Benefits](#benefits)
     - [Process Flow](#process-flow)
 - [Implementation](#implementation)
-    - [Integration and Unit Tests (Rust)](#integration-and-unit-tests-rust)
+    - [Integration and Unit Tests](#integration-and-unit-tests)
+        - [Erlang](#erlang)
+        - [Rust](#rust)
+        - [Python](#python)
     - [Llama CPP and Tiny LLM models](#llama-cpp-and-tiny-llm-models)
     - [Aggregation and Visualization (PosgreSQL and Grafana)](#aggregation-and-visualization-posgresql-and-grafana)
 
@@ -148,6 +152,9 @@ In this case I have chosen Grafana as the visualization technology for the follo
 1. It is easily integrated into a development environment
 2. It provies support for visualizing every part of the system (from infrastructure to reportings and aggregated metrics)
 3. It looks nice
+
+Example:
+![Grafana dashboard example](./doc/images/dashboard-example.png)
 
 PosgreSQL will be used as the database backend because it can be easily integrated into this demo and because it supports many awesome features out of the box (ie it has AI/LLM integrations which would be used to generate embeddings directly from data in the database).
 

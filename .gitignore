@@ -2,6 +2,7 @@ target/
 .venv
 llama-b8854
 data/
+.alex
 
 # ignore erlang stuff
 .rebar3
