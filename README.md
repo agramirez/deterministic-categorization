@@ -53,8 +53,34 @@ Our general architecture provides 4 key features:
 
 1. Flexible sources and destinations
 2. Parallelized processing for optimal performance
-3. Progressive categorization from most deterministic to least deterministic
-4. Low LLM costs from progressive categorization
+3. Progressive categorization to ensure determinism
+4. Optimal resource usage
+
+### Benefits
+
+#### Flexible sources and destinations
+
+A key idea in the architecture is to allow flexibility in data sources and destinations.  This follows standard practices in Dependency Injection for both testability and flexibility.
+
+#### Parallelized processing for optimal performance
+
+The architecture follows an event driven microservices framework such that we can ensure optimal performance for categorization.  This might not be necessary in an overnight batch process, but it becomes more critical in realtime event driven systems where we might want to categorize messages as they arrive in the system.
+
+#### Progressive categorization to ensure determinism
+
+A key aspect of this framework is the idea of ensuring determinism by matching first to strict deterministic categories and falling back to less deterministic methods should the strict categories fail.
+
+For example, we begin by searching for specific keywords associated with a category.  These keyword categories must be manually created, but it is easy to do so and the framework will readily accept the categories whether they are created in a CSV file, a database, etc.
+
+If these initial keyword categories are not matched, then we can fall back to less deterministic versions.  For example, we can try to match a keyword category to mispelled versions of the same.  If someone sends a message requesting information about **corn**, but mispells the word as **cron**, we can create a regular expression to match the mispelling.  In that case it is not 100% certain that they are talking about corn though, as they could be asking a question about a Linux **cron** job.  But, that is when we can leverage LLMs to validate the message and determine if the message was asking about **corn** or **cron** jobs.  A key feature of this process is that we have already filtered out messages completely unrelated to corn, or cron jobs for that matter.  Thus we efficiently only request an LLM check when absolutely necessary.
+
+Further, because we are sure about the categories that we are searching for, the LLM is limitted to a Yes/No answer about a specific category, and is not given an open ended request to find "all potential categories" or "some possible categories", thus reducing the chances of receiving a non-deterministic response.
+
+> NOTE: It might be more cost effective to call an LLM API once to determine all possible categories, but, it will also be more prone to false positives and non-deterministic answers.  This tradoff must be considered.  However, given that many, or most, messages will be deterministically categorized by simple keyword matching, I would argue that in practice this process can be MORE cost effective if the overall number of non-keyword matched message plus the total number of categories is lower than the total number of messages categorized via an LLM single call.
+
+### Drawbacks
+
+**TBD**
 
 ### Process Flow
 
@@ -76,9 +102,20 @@ A more standadized Minimal Viable Product (MVP) is implemented in Erlang using r
 
 An aggregation and visualization framework for aggregated metrics is provided via PosgreSQL and Grafana.
 
-### Integration and Unit Tests (Rust)
+### Integration and Unit Tests
+
+#### Erlang
 
 **TBD**
+
+#### Rust
+
+**TBD**
+
+#### Python
+
+**TBD**
+
 
 ### Llama CPP and Tiny LLM models
 
@@ -86,4 +123,12 @@ An aggregation and visualization framework for aggregated metrics is provided vi
 
 ### Aggregation and Visualization (PosgreSQL and Grafana)
 
-**TBD**
+In this case I have chosen Grafana as the visualization technology for the following reasons:
+
+1. It is easily integrated into a development environment
+2. It provies support for visualizing every part of the system (from infrastructure to reportings and aggregated metrics)
+3. It looks nice
+
+PosgreSQL will be used as the database backend because it can be easily integrated into this demo and because it supports many awesome features out of the box (ie it has AI/LLM integrations which would be used to generate embeddings directly from data in the database).
+
+However, both of these technologies can be substituted for others such as Google BigQuery, Google Analytics UI, custom dashboards, AWS Quicksight, etc.
