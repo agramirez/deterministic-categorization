@@ -17,6 +17,10 @@ the false positives to the point where we can consider the final result "functio
 - [Quck Start](#quick-tart)
 - [General Architecture](#general-architecture)
     - [Benefits](#benefits)
+        - [Flexible sources and destinations](#flexible-sources-and-destinations)
+        - [Parallelized processing for optimal performance](#parallelized-processing-for-optimal-performance)
+        - [Progressive categorization to ensure determinism](#progressive-categorization-to-ensure-determinism)
+        - [Confidence level associated with each category match](#confidence-level-associated-with-each-category-match)
     - [Process Flow](#process-flow)
 - [Implementation](#implementation)
     - [Integration and Unit Tests](#integration-and-unit-tests)
@@ -59,12 +63,13 @@ Our general architecture provides 4 key features:
 2. Parallelized processing for optimal performance
 3. Progressive categorization to ensure determinism
 4. Optimal resource usage
+5. Confidence level associated with each category match
 
 ### Benefits
 
 #### Flexible sources and destinations
 
-A key idea in the architecture is to allow flexibility in data sources and destinations.  This follows standard practices in Dependency Injection for both testability and flexibility.
+A key idea in the architecture is to allow flexibility in data sources and destinations.  This follows standard practices in Dependency Injection for both testability and flexibility in taking the design from Proof of Concept (PoC) to Minimum Viable Product (MVP).  For example, in the PoC, and even in the MVP phase, we can use CSV files along with a spreadsheet editor as our UI to generate the regular expression categories.  Once we have our basic design and process in place we can then switch to a more standard database approach with some Admin user interface for editing.
 
 #### Parallelized processing for optimal performance
 
@@ -81,6 +86,12 @@ If these initial keyword categories are not matched, then we can fall back to le
 Further, because we are sure about the categories that we are searching for, the LLM is limitted to a Yes/No answer about a specific category, and is not given an open ended request to find "all potential categories" or "some possible categories", thus reducing the chances of receiving a non-deterministic response.
 
 > NOTE: It might be more cost effective to call an LLM API once to determine all possible categories, but, it will also be more prone to false positives and non-deterministic answers.  This tradoff must be considered.  However, given that many, or most, messages will be deterministically categorized by simple keyword matching, I would argue that in practice this process can be MORE cost effective if the overall number of non-keyword matched message plus the total number of categories is lower than the total number of messages categorized via an LLM single call.
+
+#### Confidence level associated with each category match
+
+Since determinism is not necessarily guaranteed, although it is expected to be functionality present, we include a confidence level for each category match, such that we can account for potential deviations from full determinism.
+
+In the case of a full keyword match we can say that our confidence is 100% (1.0).  In the case that we match with a mispelled word, we can provide some statistically generated confidence about how likely the match is a true positive vs a false positive.  For example, we could run the mispelled word regular expression for a category against a list of curated messages from our database and determine how many false positives we get.  We then associated that value to the regular expression category match such that when a new message arrives and is categorized by said regular expression we know the likelihood that it is correct.  This value can then be used in reports and aggregated statistics as necessary.
 
 ### Drawbacks
 
@@ -150,7 +161,7 @@ An aggregation and visualization framework for aggregated metrics is provided vi
 In this case I have chosen Grafana as the visualization technology for the following reasons:
 
 1. It is easily integrated into a development environment
-2. It provies support for visualizing every part of the system (from infrastructure to reportings and aggregated metrics)
+2. It provies support for visualizing every part of the system (from infrastructure to reports and aggregated metrics)
 3. It looks nice
 
 Example:
